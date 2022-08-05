@@ -11,6 +11,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      lowercase: true,
     },
     password: {
       type: String,
@@ -26,6 +27,10 @@ const userSchema = mongoose.Schema(
     timestamps: true,
   }
 );
+
+userSchema.methods.matchPassword = async function (incomingPassword) {
+  return await bcrypt.compare(incomingPassword, this.password);
+};
 
 userSchema.pre("save", async function () {
   const salt = await bcrypt.genSalt(10);
