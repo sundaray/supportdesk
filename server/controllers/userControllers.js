@@ -13,7 +13,7 @@ const registerUser = asyncHandler(async (req, res, next) => {
 
   // If the user exists, then send an error message
   if (userExists) {
-    const err = new error("User already registered.");
+    const err = new Error("User already registered.");
     err.status = 400;
     next(err);
   }
