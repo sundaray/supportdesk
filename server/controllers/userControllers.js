@@ -1,7 +1,20 @@
 const asyncHandler = require("express-async-handler");
-const bcrypt = require("bcryptjs");
 const { generateToken } = require("../utils/generateToken");
 const User = require("../models/userModel");
+const createError = require("http-errors");
+
+// access: private
+// purpose: get the details of users
+
+const usersDetail = asyncHandler(async (req, res, next) => {
+  const users = await User.find();
+  if (users) {
+    res.json(users);
+  } else {
+    const err = createError(400, "Users not found");
+    next(err);
+  }
+});
 
 // access: public
 // purpose: register a user
@@ -12,8 +25,7 @@ const registerUser = asyncHandler(async (req, res, next) => {
   const userExists = await User.findOne({ email });
 
   if (userExists) {
-    const err = new Error("User already registered.");
-    err.status = 400;
+    const err = createError(400, "User already registered.");
     next(err);
   }
 
@@ -43,8 +55,7 @@ const loginUser = asyncHandler(async (req, res, next) => {
       token: generateToken(user._id),
     });
   } else {
-    const err = new Error("Invalid email or password");
-    err.status = 401;
+    const err = createError(401, "Invalid email or password");
     next(err);
   }
 });
@@ -52,4 +63,5 @@ const loginUser = asyncHandler(async (req, res, next) => {
 module.exports = {
   registerUser,
   loginUser,
+  usersDetail,
 };
