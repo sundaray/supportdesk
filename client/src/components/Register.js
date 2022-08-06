@@ -6,6 +6,7 @@ import { updateJwt, updateName } from "./authSlice";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import jwt_decode from "jwt-decode";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -17,8 +18,11 @@ const Register = () => {
     {
       onSuccess: (data) => {
         const { data: response } = data;
+        console.log(response);
         localStorage.setItem("authStatus", JSON.stringify(response));
         dispatch(updateJwt(response.token));
+        const { name } = jwt_decode(response.token);
+        dispatch(updateName(name));
         navigate("/");
       },
     }

@@ -19,3 +19,7 @@ html {
   height: 2rem;
   width: 2rem;
 }
+
+button {
+  cursor: pointer;
+}

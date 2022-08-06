@@ -1,13 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectName } from "./authSlice";
+import { selectName, logout } from "./authSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const name = useSelector(selectName);
+  console.log(name);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("authStatus");
+    dispatch(logout());
+    navigate("/login");
+  };
+
   return (
     <>
       {name && `Welcome ${name}`}
+      {name && <button onClick={handleLogout}>Logout</button>}
 
       <section>
         <h1>What do you need help with?</h1>
