@@ -49,9 +49,7 @@ const loginUser = asyncHandler(async (req, res, next) => {
 
   if (user && (await user.matchPassword(password))) {
     res.json({
-      name: user.name,
-      isAdmin: user.isAdmin,
-      token: generateToken(user._id),
+      token: generateToken(user._id, user.name),
     });
   } else {
     const err = createError(401, "Invalid email or password");
