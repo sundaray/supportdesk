@@ -4,7 +4,6 @@ import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { updateUser } from "./authSlice";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
@@ -18,11 +17,9 @@ const Register = () => {
     {
       onSuccess: (data) => {
         const { data: response } = data;
+        console.log(response);
         localStorage.setItem("authStatus", JSON.stringify(response));
-        const jwt = localStorage.getItem("authStatus");
-        const { name } = jwt_decode(jwt);
-        console.log(name);
-        dispatch(updateUser(name));
+        dispatch(updateUser(response));
         navigate("/");
       },
     }

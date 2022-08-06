@@ -19,7 +19,6 @@ const usersDetail = asyncHandler(async (req, res, next) => {
 // access: public
 // purpose: register a user
 const registerUser = asyncHandler(async (req, res, next) => {
-  console.log(req.body);
   const { name, email, password } = req.body;
 
   const userExists = await User.findOne({ email });
@@ -36,7 +35,7 @@ const registerUser = asyncHandler(async (req, res, next) => {
   });
 
   res.json({
-    token: generateToken(user._id),
+    token: generateToken(user._id, user.name),
   });
 });
 

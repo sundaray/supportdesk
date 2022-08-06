@@ -3,10 +3,10 @@ import { useSelector } from "react-redux";
 import { selectUser } from "./authSlice";
 
 const Home = () => {
-  const displayName = useSelector(selectUser);
+  const token = useSelector(selectUser);
   return (
     <>
-      <div>{`Hello ${displayName}`}</div>
+      <div>{token ? "loggedIn" : "loggedOut"}</div>
     </>
   );
 };
