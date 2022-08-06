@@ -4,11 +4,7 @@ import { selectName } from "./authSlice";
 
 const Home = () => {
   const name = useSelector(selectName);
-  return (
-    <>
-      <div>Hello {name}</div>
-    </>
-  );
+  return <>{name && `Welcome ${name}`}</>;
 };
 
 export default Home;

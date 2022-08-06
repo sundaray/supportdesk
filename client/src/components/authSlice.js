@@ -8,11 +8,9 @@ export const authSlice = createSlice({
   },
   reducers: {
     updateJwt: (state, action) => {
-      console.log(action.payload);
       state.jwt = action.payload;
     },
     updateName: (state, action) => {
-      console.log(action.payload);
       state.name = action.payload;
     },
   },

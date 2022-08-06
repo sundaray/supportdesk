@@ -17,9 +17,8 @@ const Register = () => {
     {
       onSuccess: (data) => {
         const { data: response } = data;
-        console.log(response);
         localStorage.setItem("authStatus", JSON.stringify(response));
-        dispatch(updateJwt(response));
+        dispatch(updateJwt(response.token));
         navigate("/");
       },
     }

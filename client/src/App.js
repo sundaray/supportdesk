@@ -12,10 +12,15 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const { token } = JSON.parse(localStorage.getItem("authStatus"));
-    const { name } = jwt_decode(token);
-    dispatch(updateName(name));
-  }, []);
+    const tokenObj = localStorage.getItem("authStatus")
+      ? JSON.parse(localStorage.getItem("authStatus"))
+      : null;
+
+    if (tokenObj) {
+      const { name } = jwt_decode(tokenObj.token);
+      dispatch(updateName(name));
+    }
+  }, [dispatch]);
   return (
     <>
       <Header />
