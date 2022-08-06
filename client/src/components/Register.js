@@ -1,8 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const mutation = useMutation((registerFormData) => {
+    return axios.post("/api/users/register", registerFormData);
+  });
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -21,9 +28,12 @@ const Register = () => {
         .required("Password is required."),
     }),
     onSubmit: (values) => {
-      console.log(values);
+      mutation.mutate(values);
     },
   });
+
+  mutation.isSuccess && navigate("/");
+
   return (
     <div className="register-form-container">
       <div>
