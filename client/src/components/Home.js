@@ -1,12 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { selectUser } from "./authSlice";
+import { selectName } from "./authSlice";
 
 const Home = () => {
-  const token = useSelector(selectUser);
+  const name = useSelector(selectName);
   return (
     <>
-      <div>{token ? "loggedIn" : "loggedOut"}</div>
+      <div>Hello {name}</div>
     </>
   );
 };

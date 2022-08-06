@@ -7,7 +7,7 @@ const token = localStorage.getItem("authStatus")
 
 const preloadedState = {
   user: {
-    name: token,
+    jwt: token,
   },
 };
 

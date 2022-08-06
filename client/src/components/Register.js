@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
-import { updateUser } from "./authSlice";
+import { updateJwt, updateName } from "./authSlice";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -19,7 +19,7 @@ const Register = () => {
         const { data: response } = data;
         console.log(response);
         localStorage.setItem("authStatus", JSON.stringify(response));
-        dispatch(updateUser(response));
+        dispatch(updateJwt(response));
         navigate("/");
       },
     }
