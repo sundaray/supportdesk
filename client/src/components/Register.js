@@ -1,15 +1,32 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
+import { useDispatch } from "react-redux";
+import { updateUser } from "./authSlice";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 const Register = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const mutation = useMutation((registerFormData) => {
-    return axios.post("/api/users/register", registerFormData);
-  });
+  const mutation = useMutation(
+    (registerFormData) => {
+      return axios.post("/api/users/register", registerFormData);
+    },
+    {
+      onSuccess: (data) => {
+        const { data: response } = data;
+        localStorage.setItem("authStatus", JSON.stringify(response));
+        const jwt = localStorage.getItem("authStatus");
+        const { name } = jwt_decode(jwt);
+        console.log(name);
+        dispatch(updateUser(name));
+        navigate("/");
+      },
+    }
+  );
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -31,8 +48,6 @@ const Register = () => {
       mutation.mutate(values);
     },
   });
-
-  mutation.isSuccess && navigate("/");
 
   return (
     <div className="register-form-container">
