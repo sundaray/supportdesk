@@ -4,6 +4,8 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import NewTicket from "./components/NewTicket";
+import PrivateRoute from "./components/PrivateRoute";
 import jwt_decode from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { updateName } from "./components/authSlice";
@@ -28,6 +30,9 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/new-ticket" element={<PrivateRoute />}>
+          <Route path="/new-ticket" element={<NewTicket />} />
+        </Route>
       </Routes>
     </>
   );

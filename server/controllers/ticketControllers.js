@@ -5,8 +5,16 @@ const createError = require("http-errors");
 
 // access: private
 // purpose: Get tickets of a user
-const userTickets = asyncHandler(async (req, res, next) => {
-  res.json({ message: "Here are your tickets." });
+const userTickets = asyncHandler(async (req, res, next) => {});
+// access: private
+// purpose: Get tickets of a user
+const userTicket = asyncHandler(async (req, res, next) => {
+  const tickets = await Ticket.find({ id: req.params.id, user: req.user.id });
+
+  if (!tickets) {
+    const err = createError(400, "Tickets not found.");
+    next(err);
+  }
 });
 
 // access: private
@@ -20,5 +28,6 @@ const createUserTicket = asyncHandler(async (req, res, next) => {
 
 module.exports = {
   userTickets,
+  userTicket,
   createUserTicket,
 };
