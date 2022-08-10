@@ -21,8 +21,18 @@ const userTicket = asyncHandler(async (req, res, next) => {
 // purpose: Create ticket for a user
 
 const createUserTicket = asyncHandler(async (req, res, next) => {
-  console.log(req);
-  res.json({ message: "Ticket Created" });
+  const { product, description } = req.body;
+  console.log(req.user._id);
+
+  const ticket = await Ticket.create({
+    user: req.user._id,
+    product,
+    description,
+  });
+
+  if (ticket) {
+    res.json(ticket);
+  }
 });
 
 module.exports = {

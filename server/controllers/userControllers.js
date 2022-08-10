@@ -10,9 +10,6 @@ const usersDetail = asyncHandler(async (req, res, next) => {
   const users = await User.find();
   if (users) {
     res.json(users);
-  } else {
-    const err = createError(400, "Users not found");
-    next(err);
   }
 });
 
