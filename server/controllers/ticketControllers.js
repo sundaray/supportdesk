@@ -40,9 +40,15 @@ const createUserTicket = asyncHandler(async (req, res, next) => {
     res.json(ticket);
   }
 });
+const deleteUserTicket = asyncHandler(async (req, res, next) => {
+  await Ticket.deleteOne({
+    _id: req.params.id,
+  });
+});
 
 module.exports = {
   userTickets,
   userTicket,
   createUserTicket,
+  deleteUserTicket,
 };

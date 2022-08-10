@@ -5,12 +5,14 @@ const {
   userTickets,
   userTicket,
   createUserTicket,
+  deleteUserTicket,
 } = require("../controllers/ticketControllers");
 
 const router = express.Router();
 
-router.post("/api/users/tickets/create", requireAuth, createUserTicket);
 router.get("/api/users/tickets", requireAuth, userTickets);
 router.get("/api/users/tickets/:id", requireAuth, userTicket);
+router.post("/api/users/tickets/create", requireAuth, createUserTicket);
+router.delete("/api/users/tickets/:id", requireAuth, deleteUserTicket);
 
 module.exports = router;

@@ -1,10 +1,12 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { useParams, useNavigate } from "react-router-dom";
+import { useQuery, useMutation, queryCache } from "@tanstack/react-query";
 import axios from "axios";
 
 const SingleTicket = () => {
   const { id: postId } = useParams();
+
+  const navigate = useNavigate();
 
   const {
     data: ticket,
@@ -16,6 +18,22 @@ const SingleTicket = () => {
     return data;
   });
 
+  const mutation = useMutation(
+    () => {
+      axios.delete(`/api/users/tickets/${postId}`);
+    },
+    {
+      onSuccess: () => {
+        navigate("/tickets");
+        queryCache.invalidateQueries("tickets");
+      },
+    }
+  );
+
+  const handleDeleteTicket = () => {
+    mutation.mutate();
+  };
+
   return (
     <div>
       {isLoading ? (
@@ -24,8 +42,10 @@ const SingleTicket = () => {
         <p>{error.message}</p>
       ) : (
         <>
+          <p>{new Date(ticket.createdAt).toLocaleString()}</p>
           <p>{ticket.product}</p>
           <p>{ticket.description}</p>
+          <button onClick={handleDeleteTicket}>Delete</button>
         </>
       )}
     </div>

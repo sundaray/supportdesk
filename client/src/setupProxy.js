@@ -4,6 +4,7 @@ module.exports = function (app) {
   app.use(
     [
       "/api/users/tickets/create",
+      "/api/users/tickets/:id",
       "/api/users/login",
       "/api/users/register",
       "/api/users/all",
