@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, queryCache } from "@tanstack/react-query";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -9,11 +9,12 @@ const NewTicket = () => {
   const navigate = useNavigate();
   const mutation = useMutation(
     (ticketData) => {
-      return axios.post("/api/users/tickets/create", ticketData);
+      axios.post("/api/users/tickets/create", ticketData);
     },
     {
       onSuccess: () => {
         navigate("/tickets");
+        queryCache.invalidateQueries("tickets");
       },
     }
   );

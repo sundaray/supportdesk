@@ -9,8 +9,8 @@ const {
 
 const router = express.Router();
 
+router.post("/api/users/tickets/create", requireAuth, createUserTicket);
 router.get("/api/users/tickets", requireAuth, userTickets);
 router.get("/api/users/tickets/:id", requireAuth, userTicket);
-router.post("/api/users/tickets/create", requireAuth, createUserTicket);
 
 module.exports = router;

@@ -17,11 +17,10 @@ const userTickets = asyncHandler(async (req, res, next) => {
 // access: private
 // purpose: Get tickets of a user
 const userTicket = asyncHandler(async (req, res, next) => {
-  const tickets = await Ticket.find({ id: req.params.id, user: req.user.id });
+  const ticket = await Ticket.findById(req.params.id);
 
-  if (!tickets) {
-    const err = createError(400, "Tickets not found.");
-    next(err);
+  if (ticket) {
+    res.json(ticket);
   }
 });
 
