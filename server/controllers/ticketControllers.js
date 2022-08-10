@@ -5,7 +5,15 @@ const createError = require("http-errors");
 
 // access: private
 // purpose: Get tickets of a user
-const userTickets = asyncHandler(async (req, res, next) => {});
+const userTickets = asyncHandler(async (req, res, next) => {
+  const tickets = await Ticket.find({
+    user: req.user._id,
+  });
+
+  if (tickets) {
+    res.json(tickets);
+  }
+});
 // access: private
 // purpose: Get tickets of a user
 const userTicket = asyncHandler(async (req, res, next) => {
@@ -22,7 +30,6 @@ const userTicket = asyncHandler(async (req, res, next) => {
 
 const createUserTicket = asyncHandler(async (req, res, next) => {
   const { product, description } = req.body;
-  console.log(req.user._id);
 
   const ticket = await Ticket.create({
     user: req.user._id,

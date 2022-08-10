@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import { useDispatch } from "react-redux";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -13,10 +12,8 @@ const NewTicket = () => {
       return axios.post("/api/users/tickets/create", ticketData);
     },
     {
-      onSuccess: (data) => {
-        const { data: response } = data;
-        console.log(response);
-        // navigate("/");
+      onSuccess: () => {
+        navigate("/tickets");
       },
     }
   );
@@ -32,7 +29,6 @@ const NewTicket = () => {
       description: Yup.string().required("Required."),
     }),
     onSubmit: (values) => {
-      console.log(values);
       mutation.mutate(values);
     },
   });
