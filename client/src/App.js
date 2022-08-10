@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import axios from "axios";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import Register from "./components/Register";
@@ -19,7 +20,9 @@ const App = () => {
       : null;
 
     if (tokenObj) {
-      const { name } = jwt_decode(tokenObj.token);
+      const { token } = tokenObj;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      const { name } = jwt_decode(token);
       dispatch(updateName(name));
     }
   }, [dispatch]);

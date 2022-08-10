@@ -21,9 +21,8 @@ const userTicket = asyncHandler(async (req, res, next) => {
 // purpose: Create ticket for a user
 
 const createUserTicket = asyncHandler(async (req, res, next) => {
-  res.json({
-    message: "Here is the ticket.",
-  });
+  console.log(req);
+  res.json({ message: "Ticket Created" });
 });
 
 module.exports = {
