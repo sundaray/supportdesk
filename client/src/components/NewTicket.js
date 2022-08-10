@@ -18,6 +18,7 @@ const NewTicket = () => {
       },
     }
   );
+
   const formik = useFormik({
     initialValues: {
       product: "",

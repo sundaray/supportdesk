@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import TicketItem from "./TicketItem";
 
@@ -22,6 +23,11 @@ const Tickets = () => {
       ) : (
         tickets.map((ticket) => <TicketItem key={ticket._id} ticket={ticket} />)
       )}
+      {tickets && tickets.length === 0 ? (
+        <Link to="/new-ticket">
+          <button>Create a Ticket</button>
+        </Link>
+      ) : null}
     </div>
   );
 };

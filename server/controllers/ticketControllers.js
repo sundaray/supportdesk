@@ -41,9 +41,13 @@ const createUserTicket = asyncHandler(async (req, res, next) => {
   }
 });
 const deleteUserTicket = asyncHandler(async (req, res, next) => {
-  await Ticket.deleteOne({
+  const { acknowledged } = await Ticket.deleteOne({
     _id: req.params.id,
   });
+
+  if (acknowledged === true) {
+    res.json({ message: "Ticket deleted." });
+  }
 });
 
 module.exports = {
