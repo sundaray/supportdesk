@@ -66,7 +66,7 @@ const Register = () => {
 
   return (
     <form
-      className="w-1/3 flex flex-col bg-white shadow-md rounded px-8 py-8 m-auto"
+      className="w-11/12  md:w-3/5 xl:w-2/5 flex flex-col bg-white shadow-md rounded px-8 py-8 m-auto"
       onSubmit={formik.handleSubmit}
     >
       <div className="flex flex-col mb-4">

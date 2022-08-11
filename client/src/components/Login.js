@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
@@ -64,7 +64,7 @@ const Login = () => {
 
   return (
     <form
-      className="w-1/3 flex flex-col bg-white shadow-md rounded px-8 py-8 m-auto"
+      className="w-11/12  md:w-3/5 xl:w-2/5 flex flex-col bg-white shadow-md rounded px-8 py-8 m-auto"
       onSubmit={formik.handleSubmit}
     >
       <div className="flex flex-col mb-4">
@@ -124,6 +124,12 @@ const Login = () => {
           )}
         </AnimatePresence>
       </div>
+      <p className="mb-4">
+        Don't have an account?{" "}
+        <Link to="/register" className="text-blue-500">
+          Register
+        </Link>
+      </p>
       <div>
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

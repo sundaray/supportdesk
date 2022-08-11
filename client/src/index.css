@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 
+html {
+  background-color:#F8F9F9;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
