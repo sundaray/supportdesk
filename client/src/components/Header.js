@@ -25,23 +25,18 @@ const Header = () => {
       <ul className="flex">
         {!name && (
           <Link to="login">
-            <li className="mr-4 hover:font-medium">
-              <LoginIcon className="inline w-4 h-4 sm:w-6 sm:h-6" /> Login
-            </li>
+            <li className="mr-4 hover:font-medium">Login</li>
           </Link>
         )}
         {!name && (
           <Link to="register">
-            <li className="hover:font-medium">
-              <UserCircleIcon className="inline w-4 h-4 sm:w-6 sm:h-6" />{" "}
-              Register
-            </li>
+            <li className="hover:font-medium">Register</li>
           </Link>
         )}
         {name && (
           <Link to="/">
-            <li onClick={handleLogout} className="hover:font-medium">
-              <LogoutIcon className="inline w-4 h-4 sm:w-6 sm:h-6 " /> Logout
+            <li className="hover:font-medium" onClick={handleLogout}>
+              Logout
             </li>
           </Link>
         )}

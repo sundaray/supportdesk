@@ -126,13 +126,13 @@ const Login = () => {
       </div>
       <p className="mb-4">
         Don't have an account?{" "}
-        <Link to="/register" className="text-blue-500">
+        <Link to="/register" className="text-indigo-500 font-medium">
           Register
         </Link>
       </p>
       <div>
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="submit"
         >
           Login
