@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
-import Header from "./components/Header";
+import { useDispatch } from "react-redux";
+import jwt_decode from "jwt-decode";
+import { updateName } from "./components/authSlice";
 import Home from "./components/Home";
-import Register from "./components/Register";
+import Header from "./components/Header";
 import Login from "./components/Login";
-import NewTicket from "./components/NewTicket";
+import Register from "./components/Register";
 import Tickets from "./components/Tickets";
 import SingleTicket from "./components/SingleTicket";
+import NewTicket from "./components/NewTicket";
 import PrivateRoute from "./components/PrivateRoute";
-import jwt_decode from "jwt-decode";
-import { useDispatch } from "react-redux";
-import { updateName } from "./components/authSlice";
 
 const App = () => {
   const dispatch = useDispatch();
