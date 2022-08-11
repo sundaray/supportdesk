@@ -1,21 +1,15 @@
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-html {
-  font-size: 62.5%;
-}
+
 
 .userIcon {
-  color: #777;
   height: 2rem;
   width: 2rem;
 }
 
 .loginIcon {
-  color: #777;
   height: 2rem;
   width: 2rem;
 }
