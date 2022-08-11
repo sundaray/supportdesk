@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { updateJwt, updateName } from "./authSlice";
@@ -9,6 +9,7 @@ import * as Yup from "yup";
 import jwt_decode from "jwt-decode";
 
 const Login = () => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const mutation = useMutation(
@@ -22,7 +23,7 @@ const Login = () => {
         dispatch(updateJwt(response.token));
         const { name } = jwt_decode(response.token);
         dispatch(updateName(name));
-        navigate("/");
+        navigate(location.state ? location.state.from.pathname : "/");
       },
     }
   );
