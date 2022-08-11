@@ -44,6 +44,7 @@ const NewTicket = () => {
         <div>
           <label htmlFor="product">Product Type</label>
           <select
+            className="block appearance-none bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
             name="product"
             id="product"
             {...formik.getFieldProps("product")}
@@ -55,7 +56,9 @@ const NewTicket = () => {
             <option value="iPad">iPad</option>
           </select>
           {formik.touched.product && formik.errors.product ? (
-            <span>{formik.errors.product}</span>
+            <span className="text-red-500 text-xs italic">
+              {formik.errors.product}
+            </span>
           ) : null}
         </div>
         <div>
@@ -66,11 +69,18 @@ const NewTicket = () => {
             {...formik.getFieldProps("description")}
           />
           {formik.touched.description && formik.errors.description ? (
-            <span>{formik.errors.description}</span>
+            <span className="text-red-500 text-xs italic">
+              {formik.errors.description}
+            </span>
           ) : null}
         </div>
         <div>
-          <button type="submit">Create Ticket</button>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit"
+          >
+            Create Ticket
+          </button>
         </div>
       </form>
     </div>
