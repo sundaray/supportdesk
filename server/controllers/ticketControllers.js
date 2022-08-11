@@ -6,6 +6,7 @@ const createError = require("http-errors");
 // access: private
 // purpose: Get tickets of a user
 const userTickets = asyncHandler(async (req, res, next) => {
+  console.log(req.user);
   const tickets = await Ticket.find({
     user: req.user._id,
   });

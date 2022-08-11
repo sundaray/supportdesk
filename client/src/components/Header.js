@@ -18,34 +18,32 @@ const Header = () => {
   };
 
   return (
-    <nav className="w-11/12 md:w-3/5 flex border-b border-gray-500 m-auto mb-10">
-      <div className="logo">
-        <Link to="/">Support Desk</Link>
-      </div>
+    <nav className="flex justify-between items-center w-11/12 md:w-3/5 h-12 sm:h-20 border-b border-gray-500 m-auto mb-10">
+      <Link to="/">
+        <h1 className="text-xl font-bold">Support Desk</h1>
+      </Link>
       <ul className="flex">
         {!name && (
-          <li>
-            <Link to="login">
-              <LoginIcon className="loginIcon" />
-              Login
-            </Link>
-          </li>
+          <Link to="login">
+            <li className="mr-4 hover:font-medium">
+              <LoginIcon className="inline w-4 h-4 sm:w-6 sm:h-6" /> Login
+            </li>
+          </Link>
         )}
         {!name && (
-          <li>
-            <Link to="register">
-              <UserCircleIcon className="userIcon" />
+          <Link to="register">
+            <li className="hover:font-medium">
+              <UserCircleIcon className="inline w-4 h-4 sm:w-6 sm:h-6" />{" "}
               Register
-            </Link>
-          </li>
+            </li>
+          </Link>
         )}
         {name && (
-          <li onClick={handleLogout}>
-            <Link to="/">
-              <LogoutIcon className="logoutIcon" />
-              Logout
-            </Link>
-          </li>
+          <Link to="/">
+            <li onClick={handleLogout} className="hover:font-medium">
+              <LogoutIcon className="inline w-4 h-4 sm:w-6 sm:h-6 " /> Logout
+            </li>
+          </Link>
         )}
       </ul>
     </nav>

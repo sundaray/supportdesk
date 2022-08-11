@@ -85,7 +85,7 @@ const Login = () => {
               initial="initial"
               animate="animate"
               exit="initial"
-              className="text-red-500 text-xs italic"
+              className="mt-1 text-red-500 text-xs italic"
             >
               {formik.errors.email}
             </motion.span>
@@ -115,7 +115,7 @@ const Login = () => {
               initial="initial"
               animate="animate"
               exit="initial"
-              className="text-red-500 text-xs italic"
+              className="mt-1 text-red-500 text-xs italic"
             >
               {formik.errors.password}
             </motion.span>
