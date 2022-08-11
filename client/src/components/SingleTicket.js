@@ -2,6 +2,7 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation, queryCache } from "@tanstack/react-query";
 import axios from "axios";
+import Spinner from "./Spinner";
 
 const SingleTicket = () => {
   const { id: postId } = useParams();
@@ -37,7 +38,7 @@ const SingleTicket = () => {
   return (
     <div>
       {isLoading ? (
-        <p>Loading...</p>
+        <Spinner />
       ) : isError ? (
         <p>{error.message}</p>
       ) : (

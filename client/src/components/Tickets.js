@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import TicketItem from "./TicketItem";
+import Spinner from "./Spinner";
 
 const Tickets = () => {
   const {
@@ -17,7 +18,7 @@ const Tickets = () => {
   return (
     <div>
       {isLoading ? (
-        <p>Loading...</p>
+        <Spinner />
       ) : isError ? (
         <p>{error.message}</p>
       ) : (
