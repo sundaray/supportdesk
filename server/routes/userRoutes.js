@@ -11,6 +11,6 @@ const router = express.Router();
 
 router.get("/api/users/all", requireAuth, usersDetail);
 router.post("/api/users/register", registerUser);
-router.post("/api/users/loginn", loginUser);
+router.post("/api/users/login", loginUser);
 
 module.exports = router;

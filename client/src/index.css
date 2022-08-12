@@ -25,11 +25,16 @@ select:-webkit-autofill:focus {
 /***********************/
 /***********************/
 
+.spinner {
+  display: flex;
+  justify-content: center;
+}
+
 
 .spinner > div {
   width: 12px;
   height: 12px;
-  background-color: #333;
+  background-color: #22c55e;
 
   border-radius: 100%;
   display: inline-block;

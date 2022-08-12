@@ -1,35 +1,20 @@
 import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { useQuery, useMutation, queryCache } from "@tanstack/react-query";
-import axios from "axios";
+import { Link, useParams } from "react-router-dom";
+import { ChevronLeftIcon } from "@heroicons/react/outline";
+import { useGetSingleTicket, useDeleteSingleTicket } from "./hooks/useQuery";
 import Spinner from "./Spinner";
 
 const SingleTicket = () => {
   const { id: postId } = useParams();
-
-  const navigate = useNavigate();
 
   const {
     data: ticket,
     isLoading,
     isError,
     error,
-  } = useQuery(["tickets", postId], async () => {
-    const { data } = await axios.get(`/api/users/tickets/${postId}`);
-    return data;
-  });
+  } = useGetSingleTicket(postId);
 
-  const mutation = useMutation(
-    () => {
-      axios.delete(`/api/users/tickets/${postId}`);
-    },
-    {
-      onSuccess: () => {
-        navigate("/tickets");
-        queryCache.invalidateQueries("tickets");
-      },
-    }
-  );
+  const mutation = useDeleteSingleTicket(postId);
 
   const handleDeleteTicket = () => {
     mutation.mutate();
@@ -42,12 +27,30 @@ const SingleTicket = () => {
       ) : isError ? (
         <p>{error.message}</p>
       ) : (
-        <>
-          <p>{new Date(ticket.createdAt).toLocaleString()}</p>
-          <p>{ticket.product}</p>
-          <p>{ticket.description}</p>
-          <button onClick={handleDeleteTicket}>Delete</button>
-        </>
+        <div className="w-11/12  md:w-3/5 xl:w-2/5 m-auto">
+          <Link to="/tickets">
+            <button className="bg-transparent hover:bg-gray-400 text-gray-700 font-semibold hover:text-white mb-6 py-1 px-2 border border-gray-400 hover:border-transparent rounded">
+              <ChevronLeftIcon className="w-5 h-5 inline" />
+              All Tickets
+            </button>
+          </Link>
+          <p className="text-gray-900 mb-2">
+            <span className="font-bold">Date:</span>{" "}
+            {new Date(ticket.createdAt).toLocaleDateString()}
+          </p>
+          <p className="text-gray-900 mb-2">
+            <span className="font-bold">Product:</span> {ticket.product}
+          </p>
+          <p className="text-gray-900 mb-6 pb-4 border-b">
+            <span className="font-bold">Issue:</span> {ticket.description}
+          </p>
+          <button
+            className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+            onClick={handleDeleteTicket}
+          >
+            Delete Ticket
+          </button>
+        </div>
       )}
     </div>
   );
