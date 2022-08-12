@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ChevronLeftIcon } from "@heroicons/react/outline";
 import { useGetSingleTicket, useDeleteSingleTicket } from "./hooks/useQuery";
 import Spinner from "./Spinner";
 import Error from "./Error";
+import Modal from "./Modal";
 
 const SingleTicket = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+
   const { id: postId } = useParams();
 
   const {
@@ -23,7 +26,13 @@ const SingleTicket = () => {
 
   return (
     <div>
-      {isLoading ? (
+      {modalOpen ? (
+        <Modal
+          handleDeleteTicket={handleDeleteTicket}
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
+        />
+      ) : isLoading ? (
         <Spinner />
       ) : isError ? (
         <Error error={error} />
@@ -47,7 +56,7 @@ const SingleTicket = () => {
           </p>
           <button
             className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-            onClick={handleDeleteTicket}
+            onClick={() => setModalOpen(!modalOpen)}
           >
             Delete Ticket
           </button>
