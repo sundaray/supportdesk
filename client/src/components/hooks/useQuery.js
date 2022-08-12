@@ -87,3 +87,22 @@ export const usePostRegister = (setRegisterError) => {
 
   return mutation;
 };
+export const usePostTicket = (setTicketError) => {
+  const navigate = useNavigate();
+
+  const mutation = useMutation(
+    (ticketData) => {
+      axios.post("/api/users/tickets/create", ticketData);
+    },
+    {
+      onSuccess: () => {
+        navigate("/tickets");
+      },
+      onError: ({ message }) => {
+        setTicketError(message);
+      },
+    }
+  );
+
+  return mutation;
+};
