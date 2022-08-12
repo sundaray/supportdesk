@@ -1,24 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
 import { useGetTickets } from "./hooks/useQuery";
 import TicketItem from "./TicketItem";
 import Spinner from "./Spinner";
-
-const errorVariant = {
-  initial: {
-    opacity: 0,
-    y: "-0.2rem",
-  },
-  animate: {
-    opacity: 1,
-    y: "0rem",
-  },
-  exit: {
-    opacity: 0,
-    y: "-0.2rem",
-  },
-};
+import Error from "./Error";
 
 const Tickets = () => {
   const { data: tickets, isLoading, isError, error } = useGetTickets();
@@ -27,17 +12,7 @@ const Tickets = () => {
       {isLoading ? (
         <Spinner />
       ) : isError ? (
-        <AnimatePresence>
-          <motion.div
-            variants={errorVariant}
-            initial="initial"
-            animate="animate"
-            exit="initial"
-            className="w-11/12  md:w-3/5 xl:w-2/5 h-10 bg-red-400 shadow-md rounded px-4 py-2 m-auto"
-          >
-            <p className="text-center">{error.message}</p>
-          </motion.div>
-        </AnimatePresence>
+        <Error error={error} />
       ) : (
         tickets.map((ticket) => <TicketItem key={ticket._id} ticket={ticket} />)
       )}

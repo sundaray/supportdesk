@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { ChevronLeftIcon } from "@heroicons/react/outline";
 import { useGetSingleTicket, useDeleteSingleTicket } from "./hooks/useQuery";
 import Spinner from "./Spinner";
+import Error from "./Error";
 
 const SingleTicket = () => {
   const { id: postId } = useParams();
@@ -25,7 +26,7 @@ const SingleTicket = () => {
       {isLoading ? (
         <Spinner />
       ) : isError ? (
-        <p>{error.message}</p>
+        <Error error={error} />
       ) : (
         <div className="w-11/12  md:w-3/5 xl:w-2/5 m-auto">
           <Link to="/tickets">

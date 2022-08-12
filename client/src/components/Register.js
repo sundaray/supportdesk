@@ -1,14 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
-import { useDispatch } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 import { XCircleIcon } from "@heroicons/react/outline";
-import { updateJwt, updateName } from "./authSlice";
-import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import jwt_decode from "jwt-decode";
+import { usePostRegister } from "./hooks/useQuery";
 
 const errorVariant = {
   initial: {
@@ -43,23 +38,8 @@ const registerErrorVariant = {
 const Register = () => {
   const [registerError, setRegisterError] = useState(null);
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const mutation = useMutation(
-    (registerFormData) => {
-      return axios.post("/api/users/register", registerFormData);
-    },
-    {
-      onSuccess: (data) => {
-        const { data: response } = data;
-        localStorage.setItem("authStatus", JSON.stringify(response));
-        dispatch(updateJwt(response.token));
-        const { name } = jwt_decode(response.token);
-        dispatch(updateName(name));
-        navigate("/");
-      },
-    }
-  );
+  const mutation = usePostRegister(setRegisterError);
+
   const formik = useFormik({
     initialValues: {
       username: "",

@@ -1,14 +1,10 @@
 import React, { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
-import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { XCircleIcon } from "@heroicons/react/outline";
-import { updateJwt, updateName } from "./authSlice";
-import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import jwt_decode from "jwt-decode";
+import { usePostLogin } from "./hooks/useQuery";
 
 const errorVariant = {
   initial: {
@@ -42,27 +38,7 @@ const loginErrorVariant = {
 const Login = () => {
   const [loginError, setLoginError] = useState(null);
 
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const mutation = useMutation(
-    (loginFormData) => {
-      return axios.post("/api/users/login", loginFormData);
-    },
-    {
-      onSuccess: (data) => {
-        const { data: response } = data;
-        localStorage.setItem("authStatus", JSON.stringify(response));
-        dispatch(updateJwt(response.token));
-        const { name } = jwt_decode(response.token);
-        dispatch(updateName(name));
-        navigate(location.state ? location.state.from.pathname : "/");
-      },
-      onError: ({ message }) => {
-        setLoginError(message);
-      },
-    }
-  );
+  const mutation = usePostLogin(setLoginError);
 
   const formik = useFormik({
     initialValues: {
