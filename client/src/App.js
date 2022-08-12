@@ -3,15 +3,15 @@ import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import jwt_decode from "jwt-decode";
-import { updateName } from "./components/authSlice";
-import Home from "./components/Home";
-import Header from "./components/Header";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Tickets from "./components/Tickets";
-import SingleTicket from "./components/SingleTicket";
-import NewTicket from "./components/NewTicket";
-import PrivateRoute from "./components/PrivateRoute";
+import { updateName } from "./components/clientState/authSlice";
+import Home from "./components/screens/Home";
+import Header from "./components/screens/Header";
+import Login from "./components/screens/Login";
+import Register from "./components/screens/Register";
+import Tickets from "./components/screens/Tickets";
+import SingleTicket from "./components/screens/SingleTicket";
+import NewTicket from "./components/screens/NewTicket";
+import PrivateRoute from "./components/screens/PrivateRoute";
 
 const App = () => {
   const dispatch = useDispatch();

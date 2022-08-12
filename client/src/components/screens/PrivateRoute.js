@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectName } from "./authSlice";
+import { selectName } from "../clientState/authSlice";
 
 const PrivateRoute = () => {
   const location = useLocation();

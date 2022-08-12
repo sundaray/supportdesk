@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useGetTickets } from "./hooks/useQuery";
+import { useGetTickets } from "../hooks/useQuery";
 import TicketItem from "./TicketItem";
-import Spinner from "./Spinner";
-import Error from "./Error";
+import Spinner from "../sharedUi/Spinner";
+import Error from "../sharedUi/Error";
 
 const Tickets = () => {
   const { data: tickets, isLoading, isError, error } = useGetTickets();

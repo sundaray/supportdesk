@@ -4,7 +4,7 @@ import { LoginIcon } from "@heroicons/react/outline";
 import { LogoutIcon } from "@heroicons/react/outline";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { selectName, logout } from "./authSlice";
+import { selectName, logout } from "../clientState/authSlice";
 
 const Header = () => {
   const name = useSelector(selectName);

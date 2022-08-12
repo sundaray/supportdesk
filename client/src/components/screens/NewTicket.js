@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { usePostTicket } from "./hooks/useQuery";
-import ErrorFormSubmission from "./ErrorFormSubmission";
+import { usePostTicket } from "../hooks/useQuery";
+import ErrorFormSubmission from "../sharedUi/ErrorFormSubmission";
 
 const errorVariant = {
   initial: {

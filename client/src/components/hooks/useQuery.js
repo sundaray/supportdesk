@@ -2,7 +2,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { updateJwt, updateName } from "../authSlice";
+import { updateJwt, updateName } from "../clientState/authSlice";
 import jwt_decode from "jwt-decode";
 
 export const useGetTickets = () => {

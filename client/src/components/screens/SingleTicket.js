@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ChevronLeftIcon } from "@heroicons/react/outline";
-import { useGetSingleTicket, useDeleteSingleTicket } from "./hooks/useQuery";
-import Spinner from "./Spinner";
-import Error from "./Error";
-import Modal from "./Modal";
+import { useGetSingleTicket, useDeleteSingleTicket } from "../hooks/useQuery";
+import Spinner from "../sharedUi/Spinner";
+import Error from "../sharedUi/Error";
+import Modal from "../sharedUi/Modal";
 
 const SingleTicket = () => {
   const [modalOpen, setModalOpen] = useState(false);
