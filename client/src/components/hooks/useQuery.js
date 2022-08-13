@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -22,26 +22,48 @@ export const useGetSingleTicket = (postId) => {
 
   return response;
 };
+
+export const usePostTicket = (setTicketError) => {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  return useMutation(
+    (ticketData) => {
+      axios.post("/api/users/tickets/create", ticketData);
+    },
+    {
+      onSuccess: () => {
+        navigate("/tickets");
+        queryClient.invalidateQueries("tickets");
+      },
+      onError: ({ message }) => {
+        setTicketError(message);
+      },
+    }
+  );
+};
+
 export const useDeleteSingleTicket = (postId) => {
   const navigate = useNavigate();
-  const mutation = useMutation(
+  const queryClient = useQueryClient();
+
+  return useMutation(
     () => {
       axios.delete(`/api/users/tickets/${postId}`);
     },
     {
       onSuccess: () => {
         navigate("/tickets");
+        queryClient.invalidateQueries("tickets");
       },
     }
   );
-
-  return mutation;
 };
 export const usePostLogin = (setLoginError) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const mutation = useMutation(
+
+  return useMutation(
     (loginFormData) => {
       return axios.post("/api/users/login", loginFormData);
     },
@@ -55,19 +77,16 @@ export const usePostLogin = (setLoginError) => {
         navigate(location.state ? location.state.from.pathname : "/");
       },
       onError: (error) => {
-        console.log(error.response);
-        setLoginError(error.message);
+        setLoginError(error.response.data.message);
       },
     }
   );
-
-  return mutation;
 };
 export const usePostRegister = (setRegisterError) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const mutation = useMutation(
+  return useMutation(
     (registerFormData) => {
       return axios.post("/api/users/register", registerFormData);
     },
@@ -85,25 +104,4 @@ export const usePostRegister = (setRegisterError) => {
       },
     }
   );
-
-  return mutation;
-};
-export const usePostTicket = (setTicketError) => {
-  const navigate = useNavigate();
-
-  const mutation = useMutation(
-    (ticketData) => {
-      axios.post("/api/users/tickets/create", ticketData);
-    },
-    {
-      onSuccess: () => {
-        navigate("/tickets");
-      },
-      onError: ({ message }) => {
-        setTicketError(message);
-      },
-    }
-  );
-
-  return mutation;
 };
