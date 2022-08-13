@@ -48,16 +48,15 @@ export const usePostLogin = (setLoginError) => {
     {
       onSuccess: (data) => {
         const { data: response } = data;
-        console.log(response);
         localStorage.setItem("authStatus", JSON.stringify(response));
         dispatch(updateJwt(response.token));
         const { username } = jwt_decode(response.token);
-        console.log(username);
         dispatch(updateName(username));
         navigate(location.state ? location.state.from.pathname : "/");
       },
-      onError: ({ message }) => {
-        setLoginError(message);
+      onError: (error) => {
+        console.log(error.response);
+        setLoginError(error.message);
       },
     }
   );
