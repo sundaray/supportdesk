@@ -24,8 +24,8 @@ const App = () => {
     if (tokenObj) {
       const { token } = tokenObj;
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      const { name } = jwt_decode(token);
-      dispatch(updateName(name));
+      const { username } = jwt_decode(token);
+      dispatch(updateName(username));
     }
   }, [dispatch]);
   return (

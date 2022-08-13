@@ -12,6 +12,8 @@ const userTickets = asyncHandler(async (req, res, next) => {
 
   if (tickets) {
     res.json(tickets);
+  } else {
+    res.json([]);
   }
 });
 // access: private

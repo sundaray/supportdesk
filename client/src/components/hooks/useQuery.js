@@ -48,10 +48,12 @@ export const usePostLogin = (setLoginError) => {
     {
       onSuccess: (data) => {
         const { data: response } = data;
+        console.log(response);
         localStorage.setItem("authStatus", JSON.stringify(response));
         dispatch(updateJwt(response.token));
-        const { name } = jwt_decode(response.token);
-        dispatch(updateName(name));
+        const { username } = jwt_decode(response.token);
+        console.log(username);
+        dispatch(updateName(username));
         navigate(location.state ? location.state.from.pathname : "/");
       },
       onError: ({ message }) => {
@@ -75,8 +77,8 @@ export const usePostRegister = (setRegisterError) => {
         const { data: response } = data;
         localStorage.setItem("authStatus", JSON.stringify(response));
         dispatch(updateJwt(response.token));
-        const { name } = jwt_decode(response.token);
-        dispatch(updateName(name));
+        const { username } = jwt_decode(response.token);
+        dispatch(updateName(username));
         navigate("/");
       },
       onError: ({ message }) => {

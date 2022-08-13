@@ -16,7 +16,7 @@ const usersDetail = asyncHandler(async (req, res, next) => {
 // access: public
 // purpose: register a user
 const registerUser = asyncHandler(async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { username, email, password } = req.body;
 
   const userExists = await User.findOne({ email });
 
@@ -26,13 +26,13 @@ const registerUser = asyncHandler(async (req, res, next) => {
   }
 
   const user = await User.create({
-    name,
+    username,
     email,
     password,
   });
 
   res.json({
-    token: generateToken(user._id, user.name),
+    token: generateToken(user._id, user.username),
   });
 });
 
@@ -46,7 +46,7 @@ const loginUser = asyncHandler(async (req, res, next) => {
 
   if (user && (await user.matchPassword(password))) {
     res.json({
-      token: generateToken(user._id, user.name),
+      token: generateToken(user._id, user.username),
     });
   } else {
     const err = createError(401, "Invalid email or password");
