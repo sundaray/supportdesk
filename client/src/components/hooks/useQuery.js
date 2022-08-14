@@ -32,8 +32,8 @@ export const usePostTicket = (setTicketError) => {
     },
     {
       onSuccess: () => {
+        queryClient.invalidateQueries(["tickets"]);
         navigate("/tickets");
-        queryClient.invalidateQueries("tickets");
       },
       onError: ({ message }) => {
         setTicketError(message);
@@ -52,8 +52,8 @@ export const useDeleteSingleTicket = (postId) => {
     },
     {
       onSuccess: () => {
+        queryClient.invalidateQueries(["tickets"]);
         navigate("/tickets");
-        queryClient.invalidateQueries("tickets");
       },
     }
   );
