@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import jwt_decode from "jwt-decode";
-import { updateName } from "./components/clientState/authSlice";
+import { updateJwt, updateName } from "./components/clientState/authSlice";
 import Home from "./components/screens/Home";
 import Header from "./components/screens/Header";
 import Login from "./components/screens/Login";
@@ -26,6 +26,7 @@ const App = () => {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       const { username } = jwt_decode(token);
       dispatch(updateName(username));
+      dispatch(updateJwt(token));
     }
   }, [dispatch]);
   return (

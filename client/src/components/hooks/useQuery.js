@@ -1,13 +1,18 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { updateJwt, updateName } from "../clientState/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { updateJwt, selectJwt, updateName } from "../clientState/authSlice";
 import jwt_decode from "jwt-decode";
 
 export const useGetTickets = () => {
+  const token = useSelector(selectJwt);
   const response = useQuery(["tickets"], async () => {
-    const { data } = await axios.get("/api/users/tickets");
+    const { data } = await axios.get("/api/users/tickets", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return data;
   });
 
@@ -15,8 +20,13 @@ export const useGetTickets = () => {
 };
 
 export const useGetSingleTicket = (postId) => {
+  const token = useSelector(selectJwt);
   const response = useQuery(["tickets", postId], async () => {
-    const { data } = await axios.get(`/api/users/tickets/${postId}`);
+    const { data } = await axios.get(`/api/users/tickets/${postId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return data;
   });
 
@@ -24,11 +34,16 @@ export const useGetSingleTicket = (postId) => {
 };
 
 export const usePostTicket = (setTicketError) => {
+  const token = useSelector(selectJwt);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   return useMutation(
     (ticketData) => {
-      return axios.post("/api/users/tickets/create", ticketData);
+      return axios.post("/api/users/tickets/create", ticketData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
     },
     {
       onSuccess: () => {
@@ -45,10 +60,15 @@ export const usePostTicket = (setTicketError) => {
 export const useDeleteSingleTicket = (postId) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const token = useSelector(selectJwt);
 
   return useMutation(
     () => {
-      return axios.delete(`/api/users/tickets/${postId}`);
+      return axios.delete(`/api/users/tickets/${postId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
     },
     {
       onSuccess: () => {
