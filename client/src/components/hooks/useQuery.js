@@ -28,7 +28,7 @@ export const usePostTicket = (setTicketError) => {
   const queryClient = useQueryClient();
   return useMutation(
     (ticketData) => {
-      axios.post("/api/users/tickets/create", ticketData);
+      return axios.post("/api/users/tickets/create", ticketData);
     },
     {
       onSuccess: () => {
@@ -48,7 +48,7 @@ export const useDeleteSingleTicket = (postId) => {
 
   return useMutation(
     () => {
-      axios.delete(`/api/users/tickets/${postId}`);
+      return axios.delete(`/api/users/tickets/${postId}`);
     },
     {
       onSuccess: () => {
